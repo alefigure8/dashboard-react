@@ -1,12 +1,16 @@
 import React, { useContext } from 'react'
 import ProjectContext from '../../context/projects/projectContext'
+import TaskContext from '../../context/Tasks/taskContext'
 import Task from './Task'
+import {CSSTransition, TransitionGroup} from 'react-transition-group'
 
 const ListTask = () => {
 
     const projectsContext = useContext(ProjectContext)
+    const tasksContext = useContext(TaskContext)
 
     const {project, projects, deleteProject} = projectsContext
+    const {task} = tasksContext
 
     // no projects
     if(projects.length === 0) return <h2>Aún no hay tareas</h2>
@@ -15,13 +19,6 @@ const ListTask = () => {
     if(!project) return <h2>Selecciona un proyecto para comenzar</h2>
 
     const [actualProject] = project
-
-    const taskPrject = [
-        {name: 'Elegir plataforma', estado: true},
-        {name: 'Elegir Otra Cosa', estado: false},
-        {name: 'Elegir Una tercera Cosa', estado: false},
-        {name: 'Elegir Una Ultima Cosa', estado: true},
-    ]
 
     const onClickDelete = e => {
         e.preventDefault()
@@ -32,9 +29,21 @@ const ListTask = () => {
         <>
         <h2>Project: {actualProject.name}</h2>
         <ul className="listado-tareas">
-            {taskPrject.length === 0
-            ? (<li className='tareas'>No hay Tareas!</li>)
-            : taskPrject.map(task => <Task key={task.name} task={task} /> )
+            {task.length === 0
+            ?   (<li className='tareas'>No hay Tareas!</li>)
+            :   <TransitionGroup>
+                    {task.map(task =>(
+                        <CSSTransition
+                             key={task.id}
+                             timeout={300}
+                             classNames='tarea'
+                        >
+                            <Task
+                                task={task}
+                            />
+                        </CSSTransition>
+                    ))}
+                </TransitionGroup>
         }
 
         </ul>
