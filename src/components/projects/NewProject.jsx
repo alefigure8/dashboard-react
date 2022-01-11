@@ -6,7 +6,7 @@ const NewProject = () => {
 
     const projectsContext = useContext(projectContext)
 
-    const {form, showForm, addProject} = projectsContext
+    const {form, showForm, addProject, validateProject, error} = projectsContext
 
     const [project, setProject] = useState({
         name: ''
@@ -24,7 +24,7 @@ const NewProject = () => {
     const onSubmitProject = e =>{
         e.preventDefault()
         if(name === ''){
-            return
+            return validateProject()
         }
         addProject(project)
         setProject({
@@ -60,7 +60,8 @@ const NewProject = () => {
                     <input type="submit" className='btn btn-primario btn-block' value='Agregar proyecto' />
                 </form>
             : null
-            }
+        }
+        {error ? <p className='mensaje error'>El campo no puede quedar vacío</p> : null}
         </>
     )
 }

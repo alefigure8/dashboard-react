@@ -20,7 +20,30 @@ export default (state, action) => {
             return {
                 ...state,
                 projects: [...state.projects, action.payload],
-                form: false
+                form: false,
+                errorform: false
+            }
+        }
+
+        case actionTypes.VALIDAR_FORMULARIO: {
+            return {
+                ...state,
+                errorform: true
+            }
+        }
+
+        case actionTypes.PROYECTO_ACTUAL: {
+            return {
+                ...state,
+                project: state.projects.filter(project => project.id === action.payload)
+            }
+        }
+
+        case actionTypes.ELIMINAR_PROYECTO: {
+            return {
+                ...state,
+                projects: state.projects.filter(project => project.id !== action.payload),
+                project: null
             }
         }
 

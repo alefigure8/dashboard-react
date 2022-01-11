@@ -13,7 +13,7 @@ const ListadoProyectos = () => {
         getProjects()
     },[])
 
-    if(projects.length === 0)  return <p>No tienes proyectos</p>
+    if(projects.length === 0)  return <p>No tienes proyectos. Comienza creando uno.</p>
 
     return (
         <ul className="listado-proyectos">

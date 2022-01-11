@@ -15,7 +15,9 @@ const ProjectState = (props) => {
     // inir state
     const initialState = {
         projects: [],
-        form: false
+        project: null,
+        form: false,
+        errorform: false,
     }
 
     // init reducer
@@ -35,14 +37,31 @@ const ProjectState = (props) => {
         dispatch({type: actionTypes.AGREGAR_PROYECTOS, payload: project})
     }
 
+    const validateProject = () => {
+        dispatch({type: actionTypes.VALIDAR_FORMULARIO})
+    }
+
+    const actualProject = id => {
+        dispatch({type: actionTypes.PROYECTO_ACTUAL, payload: id})
+    }
+
+    const deleteProject = id => {
+        dispatch({type: actionTypes.ELIMINAR_PROYECTO, payload: id})
+    }
+
     return (
         <ProjectContext.Provider
             value={{
-                form: state.form,
                 projects: state.projects,
-                showForm,
+                project: state.project,
+                form: state.form,
+                error: state.errorform,
                 getProjects,
                 addProject,
+                showForm,
+                validateProject,
+                actualProject,
+                deleteProject,
             }}
         >
             {props.children}
