@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useReducer } from 'react'
  import ProjectContext from './projectContext'
 import projectReducer from './projectReducer'
 import actionTypes from '../../types/index'
