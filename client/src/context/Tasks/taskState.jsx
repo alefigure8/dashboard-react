@@ -1,5 +1,5 @@
 import React, {useReducer} from 'react'
-import TaskContext from '../Tasks/taskContext'
+import TaskContext from './taskContext'
 import TaskReducer from './tasksReducer'
 import actionTypes from '../../types/index'
 import {v4} from 'uuid'
