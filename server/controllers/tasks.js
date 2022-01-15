@@ -41,7 +41,7 @@ export const createTask = async (req, res) => {
 export const getTasks = async (req, res) => {
 
   try {
-    const { project } = req.body
+    const { project } = req.query
 
     // find project
     const findProject = await Project.findById(project)
@@ -56,7 +56,7 @@ export const getTasks = async (req, res) => {
         return res.status(401).json({msg: 'User not allowed'})
     }
 
-    const tasks = await Tasks.find({project})
+    const tasks = await Tasks.find({project}).sort({create: -1})
 
     res.json(tasks)
 
@@ -91,13 +91,8 @@ export const editTask = async( req, res ) => {
         // create new task with updates
         const newTask = {}
 
-        if(name){
-            newTask.name = name
-        }
-
-        if(state){
-            newTask.state = state
-        }
+        newTask.name = name
+        newTask.state = state
 
         // update
         findTask = await Tasks.findByIdAndUpdate({_id: req.params.id}, newTask, {new: true})
@@ -114,7 +109,7 @@ export const editTask = async( req, res ) => {
 
 export const deleteTask = async (req, res) => {
     try {
-        const { project } = req.body
+        const { project } = req.query
 
         // find task
         let findTask = await Tasks.findById(req.params.id)
