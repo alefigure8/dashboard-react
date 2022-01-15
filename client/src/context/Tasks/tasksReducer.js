@@ -6,14 +6,14 @@ export default (state, action) => {
         case actionTypes.TAREAS_PROYECTOS: {
             return {
                 ...state,
-                task: state.tasks.filter(task => task.projectID === action.payload)
+                task: action.payload
             }
         }
 
         case actionTypes.AGREGAR_TAREAS: {
             return {
                 ...state,
-                tasks: [action.payload, ...state.tasks],
+                task: [action.payload, ...state.task],
                 error: false
             }
         }
@@ -28,14 +28,13 @@ export default (state, action) => {
         case actionTypes.ELIMINAR_TAREA: {
             return {
                 ...state,
-                tasks: state.tasks.filter(task => task.id !== action.payload)
+                task: state.task.filter(task => task._id !== action.payload)
             }
         }
-        case actionTypes.EDITAR_TAREA:
-        case actionTypes.ESTADO_TAREA: {
+        case actionTypes.EDITAR_TAREA: {
             return {
                 ...state,
-                tasks: state.tasks.map(task => task.id === action.payload.id ? action.payload : task),
+                task: state.task.map(task => task._id === action.payload._id ? action.payload : task),
                 selectedTask: null
             }
         }

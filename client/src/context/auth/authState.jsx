@@ -58,7 +58,6 @@ const AuthState = ({children}) => {
                 msg: error.response.data.msg,
                 category: 'alerta-error'
             }
-            console.log(error.response.data)
             dispatch({type: actionTypes.LOGIN_ERROR, payload: alert})
         }
     }

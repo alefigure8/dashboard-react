@@ -35,16 +35,22 @@ export default (state, action) => {
         case actionTypes.PROYECTO_ACTUAL: {
             return {
                 ...state,
-                project: state.projects.filter(project => project.id === action.payload)
+                project: state.projects.filter(project => project._id === action.payload)
             }
         }
 
         case actionTypes.ELIMINAR_PROYECTO: {
             return {
                 ...state,
-                projects: state.projects.filter(project => project.id !== action.payload),
+                projects: state.projects.filter(project => project._id !== action.payload),
                 project: null
             }
+        }
+
+        case actionTypes.PROYECTO_ERROR:
+        return {
+            ...state,
+            message: action.payload
         }
 
         default:

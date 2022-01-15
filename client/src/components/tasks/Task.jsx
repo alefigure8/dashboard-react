@@ -11,22 +11,22 @@ const Task = ({task}) => {
 
     // get tasks and delete task
     const tasksContext = useContext(TaskContext)
-    const {getTasks, deleteTask, changeState, saveActualTask} = tasksContext
+    const {getTasks, deleteTask, editTask, saveActualTask} = tasksContext
 
     // delete task
     const onClickDelete = e => {
         e.preventDefault()
-        deleteTask(task.id)
-        getTasks(getProject.id)
+        deleteTask(task._id, getProject._id)
+        getTasks(getProject._id)
     }
 
     const changeStates = task => {
-        if(task.estado){
-            task.estado = false
+        if(task.state){
+            task.state = false
         } else {
-            task.estado = true
+            task.state = true
         }
-        changeState(task)
+        editTask(task)
     }
 
     const selectTask = task => {
@@ -37,7 +37,7 @@ const Task = ({task}) => {
        <li className="tarea sombra">
            <p>{task.name}</p>
            <div className="estado">
-               {task.estado
+               {task.state
                ?
                     (
                         <button

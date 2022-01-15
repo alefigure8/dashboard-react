@@ -29,7 +29,7 @@ const FormTask = () => {
     if(!project) return null
 
    const [newProject] = project
-   const {id} = newProject
+   const {_id} = newProject
 
    // submit form
    const onSumbitForm = e => {
@@ -42,8 +42,7 @@ const FormTask = () => {
 
         if(!selected){
             // add task
-            newTask.projectID = id
-            newTask.estado = false
+            newTask.project = _id
             addTask(newTask)
 
         }else {
@@ -52,7 +51,7 @@ const FormTask = () => {
         }
 
          // update tasks
-         getTasks(id)
+         getTasks(_id)
 
          // reset form
          setNewTask({
