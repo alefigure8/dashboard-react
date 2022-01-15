@@ -1,12 +1,32 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
 import {Link} from 'react-router-dom'
 import AlertContext from '../../context/alerts/alertContext'
+import AuthContext from  '../../context/auth/authContext'
 
 const NewAccount = () => {
 
-    // constxt alert
+    // navigate
+    const navigate = useNavigate()
+
+    // constext alert
     const alertContext = useContext(AlertContext)
     const {alert, showAlert} = alertContext
+
+    //context auth
+    const authContext = useContext(AuthContext)
+    const {userRegister, message, auth} = authContext
+
+    useEffect(() => {
+            if(message){
+               const {msg, category} = message
+               return showAlert(msg, category)
+            }
+
+            if(auth) {
+                navigate('/projects')
+            }
+    }, [message, auth])
 
     // user state
     const [usuario, setUsuario] = useState({
@@ -46,7 +66,11 @@ const NewAccount = () => {
 
         }
 
-        
+        userRegister({
+            name,
+            email,
+            password
+        })
 
     }
 
