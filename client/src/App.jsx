@@ -7,8 +7,15 @@ import AlertState from './context/alerts/alertState'
 import ProjectState from './context/projects/projectState'
 import TareaState from './context/Tasks/taskState'
 import AuthState from './context/auth/authState'
+import tokenAuth from './config/tokenAuth'
+import PrivateRoutes from './components/routes/PrivateRoutes'
 
 function App() {
+
+  const token = localStorage.getItem('token')
+  if(token){
+    tokenAuth(token)
+  }
 
   return (
     <ProjectState>
@@ -19,7 +26,12 @@ function App() {
               <Routes>
                 <Route path='/' element={<Auth />} />
                 <Route path='/new-account' element={<NewAccount />} />
-                <Route path='/projects' element={<Projects />} />
+                <Route path='/projects' element={
+                  <PrivateRoutes>
+                    <Projects />
+                  </PrivateRoutes>
+                  }
+                />
               </Routes>
             </BrowserRouter>
           </AlertState>
