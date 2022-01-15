@@ -10,7 +10,6 @@ import AuthState from './context/auth/authState'
 
 function App() {
 
-
   return (
     <ProjectState>
       <TareaState>
