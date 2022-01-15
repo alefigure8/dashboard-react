@@ -4,6 +4,7 @@ import users from './routes/users.js'
 import auth from './routes/auth.js'
 import projects from './routes/projects.js'
 import tasks from './routes/tasks.js'
+import cors from 'cors'
 
 // port
 const PORT = process.env.PORT || 4000
@@ -13,6 +14,9 @@ const app = express()
 
 // mongoose
 connectDB()
+
+// init cors
+app.use(cors())
 
 // middleware
 app.use(express.json({extended: true}))
