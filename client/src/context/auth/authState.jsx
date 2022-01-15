@@ -10,7 +10,8 @@ const AuthState = ({children}) => {
         token: localStorage.getItem('token'),
         auth: null,
         user: null,
-        message: null
+        message: null,
+        loading: true
     }
     const [state, dispatch] = useReducer(authReducer, initialState)
 
@@ -62,6 +63,10 @@ const AuthState = ({children}) => {
         }
     }
 
+     const logoutSession = () => {
+        dispatch({type: actionTypes.CERRAR_SESION})
+    }
+
     return (
        <Authcontext.Provider
             value={{
@@ -69,8 +74,11 @@ const AuthState = ({children}) => {
                 auth: state.auth,
                 user: state.user,
                 message: state.message,
+                loading: state.loading,
+                userAuth,
                 userRegister,
-                inisSession
+                inisSession,
+                logoutSession
             }}
        >
            {children}

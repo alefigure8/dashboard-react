@@ -1,14 +1,24 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
 import AuthContext from '../../context/auth/authContext'
 
 const Bar = () => {
-    const authContext = useContext(AuthContext)
-    const {user} = authContext
+    const authToken = useContext(AuthContext)
+    const {userAuth, user, logoutSession} = authToken
+    const navigate = useNavigate()
+    useEffect(() => {
+       userAuth()
+    }, [])
+
+    const handleLogout = () => {
+        logoutSession()
+        navigate('/')
+    }
     return (
         <header className="app-header">
-            <p className="nombre-usuario">Hola <span></span></p>
+            <p className="nombre-usuario">Hola <span>{user?.name}</span></p>
             <nav className="nav-principal">
-                <a href="#">Cerrar Sesión</a>
+                <button className='btn btn-blank cerrar-sesion' onClick={handleLogout} >Cerrar Sesión</button>
             </nav>
         </header>
     )
