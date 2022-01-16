@@ -399,3 +399,17 @@ main {
 .icon {
   width: 30px;
 }
+
+/* PICK*/
+
+.pick{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pick img {
+  width: 500px;
+  margin-bottom: 70px;
+}

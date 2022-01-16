@@ -16,7 +16,12 @@ const ListTask = () => {
     if(projects.length === 0) return <h2>There is no task yet! Add one!</h2>
 
     // no selected project
-    if(!project) return <h2>Pick a project to start!</h2>
+    if(!project) return (
+    <div className="pick">
+        <img src='/img/pic.svg' alt='Pic' />
+        <h2>Create a new project or pick one to start!</h2>
+    </div>
+    )
 
     const [actualProject] = project
 

@@ -21,7 +21,7 @@ const ListadoProyectos = () => {
         getProjects()
     },[message])
 
-    if(projects.length === 0)  return <p>No tienes proyectos. Comienza creando uno.</p>
+    if(projects.length === 0)  return <p>No project yet. Start creating one!.</p>
 
     return (
         <ul className="listado-proyectos">
