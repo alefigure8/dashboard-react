@@ -2,6 +2,12 @@
 
 This project is about a task list, where you can create a project and its tasks. Also, you can change task´s state between "Complete" or "uncomplete", edit each task or delete.
 
+## Information
+
+The server was made with NodeJS and deployed in Herok. </br>
+For client, i use React (Reducer, Context, React-route), and was deployed in Netifly. </br>
+Database, MongoDB. 
+
 ## Screenshots
 
 <img src="https://lh3.googleusercontent.com/pw/AM-JKLVFO-JNJC6qzSA0EC3IN5-6KBnHfWnN9KC0MhNgb9DfosihuUQDEAAK35F0r6nfT3vujfMckXBAIIw8y5uZHP5ljIYDUPj2Ns3OtwOlTFinAJQniky40FD9vueN6QeRkCcflQdPrJSikKods6s2Yxe5Ow=w1793-h901-no?authuser=0" width="70%" height="70%">
