@@ -1,8 +1,8 @@
 :root {
   --blanco: #ffffff;
-  --gris1: #edf2f6;
-  --gris2: #2f3848;
-  --gris3: #1a202d;
+  --gris1: hsl(269, 100%, 98%);
+  --gris2: hsl(268, 29%, 28%)  ;
+  --gris3: #79589f;
   --negro: #000000;
   --headingFont:'Raleway', sans-serif;
   --textFont:  'Roboto', sans-serif;
@@ -59,7 +59,7 @@ a {
   padding: 1.5rem;
   font-size: 1.4;
   font-weight: 400;
-  border-radius: .5rem;
+  border-radius: .2rem;
   border: none;
   transition: background-color .3s ease;
 }
@@ -102,8 +102,12 @@ a {
   aside {
       background-color: var(--blanco);
       flex: 0 0 300px;
+      box-shadow: 1px 0px 10px #888888;
   }
   .seccion-principal {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       flex: 1;
   }
 
@@ -116,18 +120,27 @@ aside  {
 }
 
 .formulario-nuevo-proyecto {
-  margin-top: 6rem;
+  margin-top: 1rem;
+  height: 0px;
+  overflow: hidden;
+  transition: all .5s ease-in-out;
 }
+
+.formulario-nuevo-proyecto-open {
+  height: 150px;
+  padding: 3rem 0;
+}
+.formulario-nuevo-proyecto-open .input-text,
 .formulario-nuevo-proyecto .input-text {
-  border-bottom: 1px solid var(--gris2);
+  border-bottom: 2px solid var(--gris2);
   border-radius: 0;
-  background-color: var(--gris1);
+  background-color: var(--blanco);
 }
 .formulario-nuevo-proyecto .input-text::placeholder{
   color: var(--gris2);
 }
 .proyectos {
-  margin-top: 10rem;
+  margin-top: 5rem;
 }
 .listado-proyectos li {
   margin-bottom: 2rem;
@@ -142,8 +155,8 @@ aside  {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--gris2);
-  padding: 4rem;
+  background-color: var(--gris3);
+  padding: 1.5rem 4rem;
 }
 .nombre-usuario {
   color: var(--blanco);
@@ -180,7 +193,7 @@ aside  {
 .input-text {
   padding: 1rem;
   border: none;
-  border-radius: .5rem;
+  border-radius: .2rem;
   flex: 1;
   width: 100%;
 }
@@ -190,7 +203,9 @@ aside  {
   padding: 4rem;
 }
 
-
+main {
+  flex: 1;
+}
 
 .listado-tareas {
   max-width: 600px;
@@ -240,7 +255,7 @@ aside  {
   font-weight: 900;
   font-family: var(--textFont);
   font-size: 1rem;
-  padding: .5rem;
+  padding: 1rem .5rem;
   border-radius: .5rem;
   cursor: pointer;
   border: none;
@@ -362,4 +377,25 @@ aside  {
 .alerta-error {
   background-color: rgb(230, 78, 78);
   color: var(--blanco);
+}
+
+/* FOOTER */
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 6rem;
+  background-color: #79589f;
+  color: var(--blanco);
+}
+
+.icon-content {
+  margin-left: 50px;
+  display: flex;
+  justify-content: space-around;
+  width: 150px;
+}
+
+.icon {
+  width: 30px;
 }

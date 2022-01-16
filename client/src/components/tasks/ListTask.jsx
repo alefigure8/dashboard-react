@@ -13,24 +13,27 @@ const ListTask = () => {
     const {task} = tasksContext
 
     // no projects
-    if(projects.length === 0) return <h2>Aún no hay tareas</h2>
+    if(projects.length === 0) return <h2>There is no task yet! Add one!</h2>
 
     // no selected project
-    if(!project) return <h2>Selecciona un proyecto para comenzar</h2>
+    if(!project) return <h2>Pick a project to start!</h2>
 
     const [actualProject] = project
 
     const onClickDelete = e => {
         e.preventDefault()
-        deleteProject(actualProject._id)
+        const Confirm = confirm('If you press \"Ok\" project will be deleted')
+       if(Confirm){
+            deleteProject(actualProject._id)
+       }
     }
 
     return (
         <>
-        <h2>Project: {actualProject.name}</h2>
+        <h2>{actualProject.name}</h2>
         <ul className="listado-tareas">
             {task.length === 0
-            ?   (<li className='tareas'>No hay Tareas!</li>)
+            ?   (<li className='tareas'>There´s no task yet. Start creating one!</li>)
             :   <TransitionGroup>
                     {task.map(task =>(
                         <CSSTransition
@@ -53,7 +56,7 @@ const ListTask = () => {
             className='btn btn-primario'
             onClick={onClickDelete}
         >
-            Eliminar Proyecto &times;
+            Delete Project &times;
         </button>
 
         </>

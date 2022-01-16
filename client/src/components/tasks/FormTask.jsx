@@ -74,7 +74,7 @@ const FormTask = () => {
                     <input
                         type="text"
                         className='input-text'
-                        placeholder='Nombre Tarea'
+                        placeholder='Write a new task'
                         name='name'
                         value={name}
                         onChange={handleChange}
@@ -88,7 +88,7 @@ const FormTask = () => {
                      />
                 </div>
             </form>
-            {error ? <p className='mensaje error'>El nombre de la tarea es obligatorio</p> : null}
+            {error ? <p className='mensaje error'>Task´s name is reuiered!</p> : null}
         </div>
     )
 }

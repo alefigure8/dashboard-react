@@ -41,27 +41,25 @@ const NewProject = () => {
                 className='btn btn-block btn-primario'
                 onClick={ onClickForm }
             >
-                Nuevo Proyecto
+                Add a New Project
             </button>
             {
-                form
-                ? <form
-                        className='formulario-nuevo-proyecto'
+                 <form
+                        className={form ? 'formulario-nuevo-proyecto formulario-nuevo-proyecto-open' : 'formulario-nuevo-proyecto'}
                         onSubmit={ onSubmitProject }
                     >
                     <input
                         type="text"
                         className='input-text'
                         name="name"
-                        placeholder='Nombre del Proyecto'
+                        placeholder='What is the name?'
                         value={ name }
                         onChange={ onChangeProject }
                     />
-                    <input type="submit" className='btn btn-primario btn-block' value='Agregar proyecto' />
+                    <input type="submit" className='btn btn-primario btn-block' value='Save Project' />
                 </form>
-            : null
         }
-        {error ? <p className='mensaje error'>El campo no puede quedar vacío</p> : null}
+        {error ? <p className='mensaje error'>Field is requiered</p> : null}
         </>
     )
 }
