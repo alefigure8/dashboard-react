@@ -24,6 +24,8 @@ const actionTypes = {
     LOGIN_ERROR: 'LOGIN_ERROR',
     LOGIN_EXITOSO: 'LOGIN_EXITOSO',
     CERRAR_SESION: 'CERRAR_SESION',
+
+    ORDER_TASK: 'ORDER_TASK'
 }
 
 export default actionTypes

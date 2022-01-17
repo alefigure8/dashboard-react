@@ -9,7 +9,7 @@ const TaskState = ({children}) => {
     const initialState = {
     task: [],
     selectedTask: null,
-    error: false
+    error: false,
     }
 
     const [state, dispatch] = useReducer(TaskReducer, initialState)
@@ -58,6 +58,14 @@ const TaskState = ({children}) => {
         }
     }
 
+    const indexTask = async task => {
+        try {
+            await clientAxios.put(`/api/tasks/`, task)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <TaskContext.Provider
             value={{
@@ -69,7 +77,8 @@ const TaskState = ({children}) => {
                 errorTask,
                 deleteTask,
                 saveActualTask,
-                editTask
+                editTask,
+                indexTask
             }}
         >
             {children}

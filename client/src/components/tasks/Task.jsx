@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import ProjectContext from '../../context/projects/projectContext'
 import TaskContext from '../../context/Tasks/taskContext'
 
-const Task = ({task}) => {
+const Task = ({task, provided, snapshot}) => {
 
     // project id
     const projectsContext = useContext(ProjectContext)
@@ -34,7 +34,13 @@ const Task = ({task}) => {
     }
 
     return (
-       <li className="tarea sombra">
+       <li
+        className="tarea sombra"
+        style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'grey' }}
+        ref={provided.innerRef}
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+        >
            <p>{task.name}</p>
            <div className="estado">
                {task.state

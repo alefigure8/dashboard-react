@@ -56,7 +56,7 @@ export const getTasks = async (req, res) => {
         return res.status(401).json({msg: 'User not allowed'})
     }
 
-    const tasks = await Tasks.find({project}).sort({create: -1})
+    const tasks = await Tasks.find({project})
 
     res.json(tasks)
 
@@ -103,6 +103,43 @@ export const editTask = async( req, res ) => {
         console.log(error)
         return res.status(500).json({ msg: 'An error has ocurred' })
     }
+}
+
+// edit index
+export const editIndex = async (req, res) => {
+   try {
+    req.body.forEach(async task => {
+        const { project, index, _id } = task
+       // find task
+       let findTask = await Tasks.findById(_id)
+       if(!findTask){
+           return res.status(404).json({msg: 'Task not found'})
+       }
+
+       // find project
+       const findProject = await Project.findById(project)
+       if(!findProject) {
+           return res.status(404).json({msg: 'Project not found'})
+       }
+
+       // user different from project
+       if(findProject.user.toString() !== req.user.id){
+           return res.status(401).json({msg: 'User not allowed'})
+       }
+
+       // create new task with updates
+       const newTask = {}
+
+       newTask.index = index
+
+        // update
+        findTask = await Tasks.findByIdAndUpdate({_id: _id}, newTask, {new: true})
+
+    })
+   } catch (error) {
+        console.log(error)
+        return res.status(500).json({ msg: 'An error has ocurred' })
+   }
 }
 
 // delete

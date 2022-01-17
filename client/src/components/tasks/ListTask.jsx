@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import ProjectContext from '../../context/projects/projectContext'
 import TaskContext from '../../context/Tasks/taskContext'
 import Task from './Task'
 import {CSSTransition, TransitionGroup} from 'react-transition-group'
+import { DragDropContext, Droppable, Draggable  } from 'react-beautiful-dnd';
 
 const ListTask = () => {
 
@@ -10,7 +11,13 @@ const ListTask = () => {
     const tasksContext = useContext(TaskContext)
 
     const {project, projects, deleteProject} = projectsContext
-    const {task} = tasksContext
+    const {task, indexTask} = tasksContext
+    const [getTask, setTask] = useState(task)
+
+    useEffect(() => {
+        //const newTask = [... new Set (task)]
+        setTask(task)
+    }, [task])
 
     // no projects
     if(projects.length === 0) return <h2>There is no task yet! Add one!</h2>
@@ -33,29 +40,48 @@ const ListTask = () => {
        }
     }
 
+    const handleOnDragEnd = (result) => {
+        const items = Array.from(getTask)
+        const [reorderedItem] = items.splice(result.source.index, 1)
+        items.splice(result.destination.index, 0, reorderedItem)
+        items.map((item, index) => item.index = index)
+        setTask(items)
+        indexTask(items)
+    }
+
     return (
         <>
         <h2>{actualProject.name}</h2>
-        <ul className="listado-tareas">
-            {task.length === 0
-            ?   (<li className='tareas'>There´s no task yet. Start creating one!</li>)
-            :   <TransitionGroup>
-                    {task.map(task =>(
-                        <CSSTransition
-                             key={task._id}
-                             timeout={300}
-                             classNames='tarea'
-                        >
-                            <Task
-                                task={task}
-                            />
-                        </CSSTransition>
-                    ))}
-                </TransitionGroup>
-        }
-
-        </ul>
-
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="listado-tareas" >
+                {(provided) => (
+                    <ul
+                        className="listado-tareas"
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                    >
+                        {task.length === 0
+                        ?   (<li className='tareas'>There´s no task yet. Start creating one!</li>)
+                        :    getTask.sort((a,b)=> a.index - b.index).map((task, index) =>(
+                                    <Draggable
+                                        key={task._id}
+                                        draggableId={task._id}
+                                        index={index}
+                                    >
+                                        {(provided, snapshot) => (
+                                                <Task
+                                                    task={task}
+                                                    provided={provided}
+                                                    snapshot={snapshot}
+                                                />
+                                        )}
+                                    </Draggable>
+                                ))}
+                         {provided.placeholder}
+                    </ul>
+                )}
+            </Droppable>
+        </DragDropContext>
         <button
             type='button'
             className='btn btn-primario'
