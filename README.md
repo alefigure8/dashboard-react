@@ -8,6 +8,10 @@ The server was made with NodeJS and deployed in Herok. </br>
 For client, i use React (Reducer, Context, React-route), and was deployed in Netifly. </br>
 Database, MongoDB. 
 
+## Features
+
+Drag and drops. Columns advance.
+
 ## Screenshots
 
 <img src="https://lh3.googleusercontent.com/pw/AM-JKLVFO-JNJC6qzSA0EC3IN5-6KBnHfWnN9KC0MhNgb9DfosihuUQDEAAK35F0r6nfT3vujfMckXBAIIw8y5uZHP5ljIYDUPj2Ns3OtwOlTFinAJQniky40FD9vueN6QeRkCcflQdPrJSikKods6s2Yxe5Ow=w1793-h901-no?authuser=0" width="70%" height="70%">
@@ -18,4 +22,4 @@ Database, MongoDB.
 
 ## Link
 
-[Visit project](https://wizardly-agnesi-b70b8d.netlify.app/)
+[Visit my project](https://wizardly-agnesi-b70b8d.netlify.app/)
