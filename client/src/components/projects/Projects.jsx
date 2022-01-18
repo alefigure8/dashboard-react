@@ -5,6 +5,7 @@ import FormTask from '../tasks/FormTask'
 import ListTask from '../tasks/ListTask'
 import AuthContext from '../../context/auth/authContext'
 import Footer from '../layout/Footer'
+import ProjectContext from '../../context/projects/projectContext'
 
 const Projects = () => {
     const authToken = useContext(AuthContext)

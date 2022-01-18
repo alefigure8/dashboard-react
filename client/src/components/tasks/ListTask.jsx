@@ -4,6 +4,9 @@ import TaskContext from '../../context/Tasks/taskContext'
 import Task from './Task'
 import {CSSTransition, TransitionGroup} from 'react-transition-group'
 import { DragDropContext, Droppable, Draggable  } from 'react-beautiful-dnd';
+import ListTasksProgress from '../tasks/ListTasksProgress'
+import ListTasksDone from '../tasks/ListTasksDone'
+import ListTasksToDo from './ListTasksToDo'
 
 const ListTask = () => {
 
@@ -52,44 +55,63 @@ const ListTask = () => {
     return (
         <>
         <h2>{actualProject.name}</h2>
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="listado-tareas" >
-                {(provided) => (
-                    <ul
-                        className="listado-tareas"
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                    >
-                        {task.length === 0
-                        ?   (<li className='tareas'>There´s no task yet. Start creating one!</li>)
-                        :    getTask.sort((a,b)=> a.index - b.index).map((task, index) =>(
-                                    <Draggable
-                                        key={task._id}
-                                        draggableId={task._id}
-                                        index={index}
-                                    >
-                                        {(provided, snapshot) => (
-                                                <Task
-                                                    task={task}
-                                                    provided={provided}
-                                                    snapshot={snapshot}
-                                                />
-                                        )}
-                                    </Draggable>
-                                ))}
-                         {provided.placeholder}
-                    </ul>
-                )}
-            </Droppable>
-        </DragDropContext>
-        <button
-            type='button'
-            className='btn btn-primario'
-            onClick={onClickDelete}
-        >
-            Delete Project &times;
-        </button>
+            <div className='columns'>
 
+            {/*column 1*/}
+
+            <div className='column'>
+                <h2>To Do</h2>
+                <DragDropContext onDragEnd={handleOnDragEnd}>
+                    <Droppable droppableId="listado-tareas" >
+                        {(provided) => (
+                            <ul
+                                className="listado-tareas"
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                            >
+                                {task.length === 0
+                                ?   (<li className='tareas'>There´s no task yet. Start creating one!</li>)
+                                :    getTask.sort((a,b)=> a.index - b.index).map((task, index) =>(
+                                            <Draggable
+                                                key={task._id}
+                                                draggableId={task._id}
+                                                index={index}
+                                            >
+                                                {(provided, snapshot) => (
+                                                        <Task
+                                                            task={task}
+                                                            provided={provided}
+                                                            snapshot={snapshot}
+                                                        />
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                {provided.placeholder}
+                            </ul>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+            </div>
+
+            {/*column 2*/}
+
+            <div className='column'>
+                <h2>Progress</h2>
+            </div>
+
+            {/*column 3*/}
+
+            <div className='column'>
+                <h2>Done</h2>
+            </div>
+            </div>
+            <button
+                type='button'
+                className='btn btn-primario'
+                onClick={onClickDelete}
+            >
+                Delete Project &times;
+            </button>
         </>
     )
 }

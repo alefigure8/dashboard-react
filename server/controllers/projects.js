@@ -69,6 +69,9 @@ export const editProject = async (req, res) => {
 
 // delte project
 export const deleteProject = async (req, res) => {
+
+    // TODO delete task of the projects
+
     try {
         let deleteProject = await Project.findById(req.params.id)
 

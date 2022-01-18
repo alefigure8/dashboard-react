@@ -74,7 +74,7 @@ const FormTask = () => {
                     <input
                         type="text"
                         className='input-text'
-                        placeholder='Write a new task'
+                        placeholder='Add a To Do Task'
                         name='name'
                         value={name}
                         onChange={handleChange}

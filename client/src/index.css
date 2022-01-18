@@ -3,6 +3,7 @@
   --gris1: hsl(269, 100%, 98%);
   --gris2: hsl(268, 29%, 28%)  ;
   --gris3: #79589f;
+  --gris4: hsl(268, 29%, 78%);
   --negro: #000000;
   --headingFont:'Raleway', sans-serif;
   --textFont:  'Roboto', sans-serif;
@@ -412,4 +413,19 @@ main {
 .pick img {
   width: 500px;
   margin-bottom: 70px;
+}
+
+/* COLUMNS */
+
+.columns {
+  display: flex;
+  flex: 1;
+}
+
+.column {
+  background-color: var(--gris4);
+  border-radius: 15px;
+  padding: 2rem;
+  flex-basis: 33%;
+  margin-right: 15px;
 }
