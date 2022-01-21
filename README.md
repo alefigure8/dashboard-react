@@ -10,7 +10,7 @@ Database, MongoDB.
 
 ## Features
 
-Drag and drops. Columns advance.
+Drag and drops. Columns advance. Todo, process and done.
 
 ## Screenshots
 
