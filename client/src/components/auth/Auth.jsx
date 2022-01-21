@@ -58,7 +58,7 @@ const Auth = () => {
         <div className="form-usuario">
             {alert ? (<div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}
             <div className="contenedor-form sombra-dark">
-                <h1>Iniciar sesion</h1>
+                <h1 className='h1-form'>Iniciar sesion</h1>
                 <form
                     onSubmit={onSubmit}
                 >

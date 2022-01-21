@@ -78,7 +78,7 @@ const NewAccount = () => {
         <div className="form-usuario">
             {alert ? (<div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}
             <div className="contenedor-form sombra-dark">
-                <h1>Obtener una cuenta</h1>
+                <h1 className='h1-form'>Obtener una cuenta</h1>
                 <form
                     onSubmit={onSubmit}
                 >
