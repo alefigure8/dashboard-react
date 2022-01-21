@@ -2,11 +2,8 @@ import React, { useContext, useState, useEffect } from 'react'
 import ProjectContext from '../../context/projects/projectContext'
 import TaskContext from '../../context/Tasks/taskContext'
 import Task from './Task'
-import {CSSTransition, TransitionGroup} from 'react-transition-group'
-import { DragDropContext, Droppable, Draggable  } from 'react-beautiful-dnd';
-import ListTasksProgress from '../tasks/ListTasksProgress'
-import ListTasksDone from '../tasks/ListTasksDone'
-import ListTasksToDo from './ListTasksToDo'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import columnsTask from '../drag/Column'
 
 const ListTask = () => {
 
@@ -17,13 +14,18 @@ const ListTask = () => {
     const {task, indexTask} = tasksContext
     const [getTask, setTask] = useState(task)
 
+    // rendering columns
+    const [getColumns, setColumns] =  useState(columnsTask)
+
     useEffect(() => {
-        //const newTask = [... new Set (task)]
         setTask(task)
     }, [task])
 
-    // no projects
-    if(projects.length === 0) return <h2>There is no task yet! Add one!</h2>
+    // task into each columns
+    getColumns.forEach( col => {
+        const colTask = getTask.filter(task => task.column === col.id)
+        col.columnTask = colTask
+    })
 
     // no selected project
     if(!project) return (
@@ -43,67 +45,54 @@ const ListTask = () => {
        }
     }
 
+    // handle task into columns or between them
     const handleOnDragEnd = (result) => {
         const items = Array.from(getTask)
-        const [reorderedItem] = items.splice(result.source.index, 1)
-        items.splice(result.destination.index, 0, reorderedItem)
-        items.map((item, index) => item.index = index)
-        setTask(items)
-        indexTask(items)
+
+        // between columns
+        if(result.source.droppableId !== result.destination.droppableId) {
+            const column = getColumns.filter(col => col.title === result.destination.droppableId)
+            const item = items.filter( eachItem => eachItem._id === result.draggableId)[0]
+            item.column = column[0].id
+
+        } else { // into columns
+            const [reorderedItem] = items.splice(result.source.index, 1)
+            items.splice(result.destination.index, 0, reorderedItem)
+            items.map((item, index) => item.index = index)
+        }
+        setTask(items) // rendering task
+        indexTask(items) // save index and column number
     }
 
     return (
         <>
-        <h2>{actualProject.name}</h2>
-            <div className='columns'>
-
-            {/*column 1*/}
-
-            <div className='column'>
-                <h2>To Do</h2>
+            <h2>{actualProject.name}</h2>
+            <div  className='columns'>
                 <DragDropContext onDragEnd={handleOnDragEnd}>
-                    <Droppable droppableId="listado-tareas" >
-                        {(provided) => (
-                            <ul
-                                className="listado-tareas"
-                                {...provided.droppableProps}
-                                ref={provided.innerRef}
-                            >
-                                {task.length === 0
-                                ?   (<li className='tareas'>There´s no task yet. Start creating one!</li>)
-                                :    getTask.sort((a,b)=> a.index - b.index).map((task, index) =>(
-                                            <Draggable
-                                                key={task._id}
-                                                draggableId={task._id}
-                                                index={index}
-                                            >
-                                                {(provided, snapshot) => (
-                                                        <Task
-                                                            task={task}
-                                                            provided={provided}
-                                                            snapshot={snapshot}
-                                                        />
-                                                )}
-                                            </Draggable>
-                                        ))}
-                                {provided.placeholder}
-                            </ul>
-                        )}
-                    </Droppable>
+                    {getColumns.map( ({id, title, columnTask}) => (
+                        <div className='column' key={id}>
+                            <h2>{title}</h2>
+                            <Droppable droppableId={title}>
+                                {(provided, snapshot) => (
+                                <ul
+                                    className= {snapshot.isDraggingOver ? 'listado-tareas-drag ' : 'listado-tareas'}
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                >
+                                    {columnTask.map((task) =>(
+                                        <Task
+                                            key={task._id}
+                                            task={task}
+                                            index={task.index}
+                                        />
+                                    ))}
+                                    {provided.placeholder}
+                                </ul>
+                                )}
+                            </Droppable>
+                        </div>
+                    ))}
                 </DragDropContext>
-            </div>
-
-            {/*column 2*/}
-
-            <div className='column'>
-                <h2>Progress</h2>
-            </div>
-
-            {/*column 3*/}
-
-            <div className='column'>
-                <h2>Done</h2>
-            </div>
             </div>
             <button
                 type='button'

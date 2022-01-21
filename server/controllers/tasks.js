@@ -28,6 +28,7 @@ export const createTask = async (req, res) => {
 
         // save task
         const task  = new Tasks(req.body)
+        task.column = 1
         await task.save()
 
         res.json(task)
@@ -56,7 +57,7 @@ export const getTasks = async (req, res) => {
         return res.status(401).json({msg: 'User not allowed'})
     }
 
-    const tasks = await Tasks.find({project})
+    const tasks = await Tasks.find({project}).sort({create: -1})
 
     res.json(tasks)
 
@@ -69,7 +70,7 @@ export const getTasks = async (req, res) => {
 // edit Task
 export const editTask = async( req, res ) => {
     try {
-        const { project, state, name } = req.body
+        const { project, state, name, _id } = req.body
 
         // find task
         let findTask = await Tasks.findById(req.params.id)
@@ -90,10 +91,8 @@ export const editTask = async( req, res ) => {
 
         // create new task with updates
         const newTask = {}
-
         newTask.name = name
         newTask.state = state
-
         // update
         findTask = await Tasks.findByIdAndUpdate({_id: req.params.id}, newTask, {new: true})
 
@@ -105,11 +104,11 @@ export const editTask = async( req, res ) => {
     }
 }
 
-// edit index
+// edit index & column
 export const editIndex = async (req, res) => {
    try {
     req.body.forEach(async task => {
-        const { project, index, _id } = task
+        const { project, index, _id, column } = task
        // find task
        let findTask = await Tasks.findById(_id)
        if(!findTask){
@@ -129,7 +128,7 @@ export const editIndex = async (req, res) => {
 
        // create new task with updates
        const newTask = {}
-
+       newTask.column = column
        newTask.index = index
 
         // update
